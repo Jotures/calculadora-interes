@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Interés Compuesto</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Calculadora de Inversión</h1>
+            <p>Proyecta tus ganancias con interés compuesto</p>
+        </header>
+        
+        <main class="calculator-card">
+            <div class="input-group">
+                <label for="principal">Capital Inicial (S/)</label>
+                <input type="number" id="principal" placeholder="Ej. 1000" min="0" step="0.01">
+            </div>
+
+            <div class="input-group">
+                <label for="rate">Tasa de Interés Anual (%)</label>
+                <input type="number" id="rate" placeholder="Ej. 10" min="0" step="0.01">
+            </div>
+
+            <div class="input-group">
+                <label for="time">Tiempo de Inversión (Años)</label>
+                <input type="number" id="time" placeholder="Ej. 5" min="0" step="1">
+            </div>
+
+            <button id="calculate-btn">Calcular Proyección</button>
+
+            <div id="result" class="result-container hidden">
+                <div class="result-item">
+                    <span>Monto Final</span>
+                    <h2 id="final-amount">S/ 0.00</h2>
+                </div>
+                <div class="result-item profit">
+                    <span>Ganancia Total</span>
+                    <h3 id="total-profit">+ S/ 0.00</h3>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
