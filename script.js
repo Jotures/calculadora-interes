@@ -3,14 +3,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultContainer = document.getElementById('result');
     const finalAmountEl = document.getElementById('final-amount');
     const totalProfitEl = document.getElementById('total-profit');
+    const errorMessageEl = document.getElementById('error-message');
+    const inputs = document.querySelectorAll('input');
 
     calculateBtn.addEventListener('click', () => {
-        const principal = parseFloat(document.getElementById('principal').value);
-        const rate = parseFloat(document.getElementById('rate').value);
-        const time = parseFloat(document.getElementById('time').value);
+        // Reset errors
+        errorMessageEl.classList.add('hidden');
+        errorMessageEl.textContent = '';
+        inputs.forEach(input => input.classList.remove('input-error'));
+        resultContainer.classList.add('hidden');
 
-        if (isNaN(principal) || isNaN(rate) || isNaN(time) || principal < 0 || rate < 0 || time < 0) {
-            alert('Por favor, ingresa valores válidos y positivos.');
+        const principalInput = document.getElementById('principal');
+        const rateInput = document.getElementById('rate');
+        const timeInput = document.getElementById('time');
+
+        const principal = parseFloat(principalInput.value);
+        const rate = parseFloat(rateInput.value);
+        const time = parseFloat(timeInput.value);
+
+        let isValid = true;
+        let errorMsg = '';
+
+        if (isNaN(principal) || principal < 0) {
+            principalInput.classList.add('input-error');
+            isValid = false;
+            errorMsg = 'El capital inicial no puede ser negativo.';
+        }
+
+        if (isNaN(rate) || rate < 0) {
+            rateInput.classList.add('input-error');
+            isValid = false;
+            errorMsg = errorMsg || 'La tasa de interés no puede ser negativa.';
+        }
+
+        if (isNaN(time) || time <= 0) {
+            timeInput.classList.add('input-error');
+            isValid = false;
+            errorMsg = errorMsg || 'El tiempo de inversión debe ser mayor a 0.';
+        }
+
+        if (!isValid) {
+            errorMessageEl.textContent = errorMsg;
+            errorMessageEl.classList.remove('hidden');
             return;
         }
 
