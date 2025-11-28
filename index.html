@@ -36,7 +36,10 @@
 
             <div id="error-message" class="error-message hidden"></div>
 
-            <button id="calculate-btn">Calcular Proyección</button>
+            <div class="button-group">
+                <button id="calculate-btn">Calcular Proyección</button>
+                <button id="reset-btn" class="secondary-btn">Limpiar Datos</button>
+            </div>
 
             <div id="result" class="result-container hidden">
                 <div class="result-item">
@@ -53,6 +56,7 @@
             </div>
         </main>
     </div>
+    <div id="toast" class="toast hidden">Datos borrados</div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>

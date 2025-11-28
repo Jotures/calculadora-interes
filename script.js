@@ -183,4 +183,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize
     loadData();
+
+    // Reset Logic
+    const resetBtn = document.getElementById('reset-btn');
+    const toast = document.getElementById('toast');
+
+    resetBtn.addEventListener('click', () => {
+        // Clear inputs
+        document.getElementById('principal').value = '';
+        document.getElementById('rate').value = '';
+        document.getElementById('time').value = '';
+
+        // Clear LocalStorage
+        localStorage.clear();
+
+        // Hide results
+        resultContainer.classList.add('hidden');
+
+        // Destroy Chart
+        if (growthChart) {
+            growthChart.destroy();
+            growthChart = null;
+        }
+
+        // Reset errors
+        errorMessageEl.classList.add('hidden');
+        inputs.forEach(input => input.classList.remove('input-error'));
+
+        // Show Toast
+        showToast();
+    });
+
+    function showToast() {
+        toast.classList.remove('hidden');
+        // Trigger reflow
+        void toast.offsetWidth;
+        toast.classList.add('show');
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 300);
+        }, 3000);
+    }
 });
