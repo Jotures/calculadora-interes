@@ -6,6 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessageEl = document.getElementById('error-message');
     const inputs = document.querySelectorAll('input');
 
+    const formatCurrency = (value) => {
+        return new Intl.NumberFormat('es-PE', {
+            style: 'currency',
+            currency: 'PEN',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(value);
+    };
+
     calculateBtn.addEventListener('click', () => {
         // Reset errors
         errorMessageEl.classList.add('hidden');
@@ -53,16 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const amount = principal * Math.pow((1 + rate / 100), time);
         const profit = amount - principal;
 
-        // Format currency
-        const formatter = new Intl.NumberFormat('es-PE', {
-            style: 'currency',
-            currency: 'PEN',
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
-
-        finalAmountEl.textContent = formatter.format(amount);
-        totalProfitEl.textContent = `+ ${formatter.format(profit)}`;
+        finalAmountEl.textContent = formatCurrency(amount);
+        totalProfitEl.textContent = `+ ${formatCurrency(profit)}`;
 
         resultContainer.classList.remove('hidden');
 
@@ -122,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     label += ': ';
                                 }
                                 if (context.parsed.y !== null) {
-                                    label += new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN' }).format(context.parsed.y);
+                                    label += formatCurrency(context.parsed.y);
                                 }
                                 return label;
                             }
@@ -142,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ticks: {
                             color: '#94a3b8',
                             callback: function (value) {
-                                return 'S/ ' + value;
+                                return formatCurrency(value);
                             }
                         },
                         grid: {
