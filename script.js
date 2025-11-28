@@ -228,6 +228,108 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
+    // Loan Calculator Logic
+    const calculateLoanBtn = document.getElementById('calculate-loan-btn');
+    const resetLoanBtn = document.getElementById('reset-loan-btn');
+    const loanResultContainer = document.getElementById('loan-result');
+    const monthlyPaymentEl = document.getElementById('monthly-payment');
+    const loanErrorMessageEl = document.getElementById('loan-error-message');
+    const amortizationTableBody = document.querySelector('#amortization-table tbody');
+
+    calculateLoanBtn.addEventListener('click', () => {
+        // Reset errors
+        loanErrorMessageEl.classList.add('hidden');
+        loanErrorMessageEl.textContent = '';
+        document.querySelectorAll('#seccion-amortizacion input').forEach(input => input.classList.remove('input-error'));
+        loanResultContainer.classList.add('hidden');
+
+        const amountInput = document.getElementById('loan-amount');
+        const rateInput = document.getElementById('loan-rate');
+        const termInput = document.getElementById('loan-term');
+
+        const amount = parseFloat(amountInput.value);
+        const annualRate = parseFloat(rateInput.value);
+        const termMonths = parseInt(termInput.value);
+
+        let isValid = true;
+        let errorMsg = '';
+
+        if (isNaN(amount) || amount <= 0) {
+            amountInput.classList.add('input-error');
+            isValid = false;
+            errorMsg = 'El monto del préstamo debe ser mayor a 0.';
+        }
+
+        if (isNaN(annualRate) || annualRate < 0) {
+            rateInput.classList.add('input-error');
+            isValid = false;
+            errorMsg = errorMsg || 'La tasa de interés no puede ser negativa.';
+        }
+
+        if (isNaN(termMonths) || termMonths <= 0) {
+            termInput.classList.add('input-error');
+            isValid = false;
+            errorMsg = errorMsg || 'El plazo debe ser mayor a 0 meses.';
+        }
+
+        if (!isValid) {
+            loanErrorMessageEl.textContent = errorMsg;
+            loanErrorMessageEl.classList.remove('hidden');
+            return;
+        }
+
+        // French System Calculation
+        // Convert Annual Rate to Monthly Effective Rate (TEM)
+        // Formula: TEM = (1 + TEA/100)^(1/12) - 1
+        const monthlyRate = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
+
+        // Calculate Monthly Payment (Cuota)
+        // Formula: R = P * (r * (1+r)^n) / ((1+r)^n - 1)
+        const payment = amount * (monthlyRate * Math.pow(1 + monthlyRate, termMonths)) / (Math.pow(1 + monthlyRate, termMonths) - 1);
+
+        monthlyPaymentEl.textContent = formatCurrency(payment);
+
+        // Generate Table
+        amortizationTableBody.innerHTML = '';
+        let currentBalance = amount;
+        let totalInterest = 0;
+
+        for (let i = 1; i <= termMonths; i++) {
+            const interest = currentBalance * monthlyRate;
+            const principal = payment - interest;
+            currentBalance -= principal;
+
+            // Handle last row rounding precision
+            if (i === termMonths && Math.abs(currentBalance) < 1) {
+                currentBalance = 0;
+            }
+
+            totalInterest += interest;
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${i}</td>
+                <td>${formatCurrency(payment)}</td>
+                <td>${formatCurrency(interest)}</td>
+                <td>${formatCurrency(principal)}</td>
+                <td>${formatCurrency(Math.max(0, currentBalance))}</td>
+            `;
+            amortizationTableBody.appendChild(row);
+        }
+
+        loanResultContainer.classList.remove('hidden');
+    });
+
+    resetLoanBtn.addEventListener('click', () => {
+        document.getElementById('loan-amount').value = '';
+        document.getElementById('loan-rate').value = '';
+        document.getElementById('loan-term').value = '';
+        loanResultContainer.classList.add('hidden');
+        loanErrorMessageEl.classList.add('hidden');
+        document.querySelectorAll('#seccion-amortizacion input').forEach(input => input.classList.remove('input-error'));
+        showToast();
+    });
+
     // Tab Switching Logic
     const tabBtnCompound = document.getElementById('tab-btn-compound');
     const tabBtnAmortization = document.getElementById('tab-btn-amortization');
