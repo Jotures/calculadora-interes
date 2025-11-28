@@ -227,4 +227,36 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 300);
         }, 3000);
     }
+
+    // Tab Switching Logic
+    const tabBtnCompound = document.getElementById('tab-btn-compound');
+    const tabBtnAmortization = document.getElementById('tab-btn-amortization');
+    const sectionInteres = document.getElementById('seccion-interes');
+    const sectionAmortization = document.getElementById('seccion-amortizacion');
+
+    function switchTab(tabId) {
+        // Update Buttons
+        if (tabId === 'compound') {
+            tabBtnCompound.classList.add('active');
+            tabBtnAmortization.classList.remove('active');
+
+            sectionInteres.classList.add('active');
+            sectionInteres.classList.remove('hidden');
+
+            sectionAmortization.classList.remove('active');
+            sectionAmortization.classList.add('hidden');
+        } else {
+            tabBtnAmortization.classList.add('active');
+            tabBtnCompound.classList.remove('active');
+
+            sectionAmortization.classList.add('active');
+            sectionAmortization.classList.remove('hidden');
+
+            sectionInteres.classList.remove('active');
+            sectionInteres.classList.add('hidden');
+        }
+    }
+
+    tabBtnCompound.addEventListener('click', () => switchTab('compound'));
+    tabBtnAmortization.addEventListener('click', () => switchTab('amortization'));
 });

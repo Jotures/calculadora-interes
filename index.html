@@ -19,39 +19,54 @@
         </header>
 
         <main class="calculator-card">
-            <div class="input-group">
-                <label for="principal">Capital Inicial (S/)</label>
-                <input type="number" id="principal" placeholder="Ej. 1000" min="0" step="0.01">
-            </div>
+            <nav class="tab-nav">
+                <button id="tab-btn-compound" class="tab-btn active">Interés Compuesto</button>
+                <button id="tab-btn-amortization" class="tab-btn">Amortización</button>
+            </nav>
 
-            <div class="input-group">
-                <label for="rate">Tasa de Interés Anual (%)</label>
-                <input type="number" id="rate" placeholder="Ej. 10" min="0" step="0.01">
-            </div>
-
-            <div class="input-group">
-                <label for="time">Tiempo de Inversión (Años)</label>
-                <input type="number" id="time" placeholder="Ej. 5" min="0" step="1">
-            </div>
-
-            <div id="error-message" class="error-message hidden"></div>
-
-            <div class="button-group">
-                <button id="calculate-btn">Calcular Proyección</button>
-                <button id="reset-btn" class="secondary-btn">Limpiar Datos</button>
-            </div>
-
-            <div id="result" class="result-container hidden">
-                <div class="result-item">
-                    <span>Monto Final</span>
-                    <h2 id="final-amount">S/ 0.00</h2>
+            <div id="seccion-interes" class="tab-content active">
+                <div class="input-group">
+                    <label for="principal">Capital Inicial (S/)</label>
+                    <input type="number" id="principal" placeholder="Ej. 1000" min="0" step="0.01">
                 </div>
-                <div class="result-item profit">
-                    <span>Ganancia Total</span>
-                    <h3 id="total-profit">+ S/ 0.00</h3>
+
+                <div class="input-group">
+                    <label for="rate">Tasa de Interés Anual (%)</label>
+                    <input type="number" id="rate" placeholder="Ej. 10" min="0" step="0.01">
                 </div>
-                <div class="chart-container" style="position: relative; height:300px; width:100%; margin-top: 20px;">
-                    <canvas id="growthChart"></canvas>
+
+                <div class="input-group">
+                    <label for="time">Tiempo de Inversión (Años)</label>
+                    <input type="number" id="time" placeholder="Ej. 5" min="0" step="1">
+                </div>
+
+                <div id="error-message" class="error-message hidden"></div>
+
+                <div class="button-group">
+                    <button id="calculate-btn">Calcular Proyección</button>
+                    <button id="reset-btn" class="secondary-btn">Limpiar Datos</button>
+                </div>
+
+                <div id="result" class="result-container hidden">
+                    <div class="result-item">
+                        <span>Monto Final</span>
+                        <h2 id="final-amount">S/ 0.00</h2>
+                    </div>
+                    <div class="result-item profit">
+                        <span>Ganancia Total</span>
+                        <h3 id="total-profit">+ S/ 0.00</h3>
+                    </div>
+                    <div class="chart-container"
+                        style="position: relative; height:300px; width:100%; margin-top: 20px;">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="seccion-amortizacion" class="tab-content hidden">
+                <div class="placeholder-content">
+                    <h3>Próximamente</h3>
+                    <p>Calculadora de Cuotas</p>
                 </div>
             </div>
         </main>

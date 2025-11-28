@@ -57,6 +57,65 @@ header p {
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
 }
 
+/* Tab Navigation */
+.tab-nav {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background-color: var(--input-bg);
+    padding: 0.25rem;
+    border-radius: 8px;
+}
+
+.tab-btn {
+    flex: 1;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 0;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+    background-color: var(--card-bg);
+    color: var(--accent-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.placeholder-content {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+    border: 2px dashed var(--input-border);
+    border-radius: 8px;
+}
+
+.placeholder-content h3 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
 .input-group {
     margin-bottom: 1.5rem;
 }
@@ -164,179 +223,39 @@ button:active {
     margin-bottom: 1rem;
     font-size: 0.9rem;
     text-align: center;
+}
 
-    :root {
-        --bg-color: #0f172a;
-        --card-bg: #1e293b;
-        --text-primary: #f8fafc;
-        --text-secondary: #94a3b8;
-        --accent-color: #10b981;
-        /* Emerald 500 */
-        --accent-hover: #059669;
-        /* Emerald 600 */
-        --input-bg: #334155;
-        --input-border: #475569;
-        --font-family: 'Inter', sans-serif;
-    }
+.error-message.hidden {
+    display: none;
+}
 
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+.input-error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
 
-    body {
-        font-family: var(--font-family);
-        background-color: var(--bg-color);
-        color: var(--text-primary);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px;
-    }
+.button-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
 
-    .container {
-        width: 100%;
-        max-width: 480px;
-    }
+.button-group button {
+    flex: 1;
+    min-width: 140px;
+    margin-top: 0.5rem;
+}
 
-    header {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
+.secondary-btn {
+    background-color: transparent;
+    border: 1px solid #475569;
+    color: #94a3b8;
+    /* margin-top handled by general button rule */
+}
 
-    header h1 {
-        font-size: 1.75rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-    }
-
-    header p {
-        color: var(--text-secondary);
-        font-size: 0.95rem;
-    }
-
-    .calculator-card {
-        background-color: var(--card-bg);
-        padding: 2rem;
-        border-radius: 16px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-    }
-
-    .input-group {
-        margin-bottom: 1.5rem;
-    }
-
-    .input-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-    }
-
-    .input-group input {
-        width: 100%;
-        padding: 0.875rem;
-        background-color: var(--input-bg);
-        border: 1px solid var(--input-border);
-        border-radius: 8px;
-        color: var(--text-primary);
-        font-size: 1rem;
-        font-family: var(--font-family);
-        transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .input-group input:focus {
-        outline: none;
-        border-color: var(--accent-color);
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-    }
-
-    button {
-        width: 100%;
-        padding: 1rem;
-        background-color: var(--accent-color);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s, transform 0.1s;
-        margin-top: 0.5rem;
-    }
-
-    button:hover {
-        background-color: var(--accent-hover);
-    }
-
-    button:active {
-        transform: translateY(1px);
-    }
-
-    .result-container {
-        margin-top: 2rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid var(--input-border);
-        animation: fadeIn 0.5s ease-out;
-    }
-
-    .result-container.hidden {
-        display: none;
-    }
-
-    .result-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 1rem;
-    }
-
-    .result-item span {
-        color: var(--text-secondary);
-        font-size: 0.95rem;
-    }
-
-    .result-item h2 {
-        font-size: 1.5rem;
-        font-weight: 700;
-    }
-
-    .result-item.profit h3 {
-        color: var(--accent-color);
-        font-size: 1.25rem;
-        font-weight: 600;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .error-message {
-        color: #ef4444;
-        background-color: rgba(239, 68, 68, 0.1);
-        border: 1px solid rgba(239, 68, 68, 0.2);
-        padding: 0.75rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        font-size: 0.9rem;
-        text-align: center;
-    }
-
-    .error-message.hidden {
-        display: none;
-    }
-
+.secondary-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: #ef4444;
     color: #ef4444;
 }
 
@@ -353,208 +272,12 @@ button:active {
     font-size: 0.9rem;
     font-weight: 500;
     opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    pointer-events: none;
+    z-index: 50;
+}
 
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        font-family: var(--font-family);
-        background-color: var(--bg-color);
-        color: var(--text-primary);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 480px;
-    }
-
-    header {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-
-    header h1 {
-        font-size: 1.75rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-    }
-
-    header p {
-        color: var(--text-secondary);
-        font-size: 0.95rem;
-    }
-
-    .calculator-card {
-        background-color: var(--card-bg);
-        padding: 2rem;
-        border-radius: 16px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-    }
-
-    .input-group {
-        margin-bottom: 1.5rem;
-    }
-
-    .input-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-    }
-
-    .input-group input {
-        width: 100%;
-        padding: 0.875rem;
-        background-color: var(--input-bg);
-        border: 1px solid var(--input-border);
-        border-radius: 8px;
-        color: var(--text-primary);
-        font-size: 1rem;
-        font-family: var(--font-family);
-        transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .input-group input:focus {
-        outline: none;
-        border-color: var(--accent-color);
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-    }
-
-    button {
-        width: 100%;
-        padding: 1rem;
-        background-color: var(--accent-color);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s, transform 0.1s;
-        margin-top: 0.5rem;
-    }
-
-    button:hover {
-        background-color: var(--accent-hover);
-    }
-
-    button:active {
-        transform: translateY(1px);
-    }
-
-    .result-container {
-        margin-top: 2rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid var(--input-border);
-        animation: fadeIn 0.5s ease-out;
-    }
-
-    .result-container.hidden {
-        display: none;
-    }
-
-    .result-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 1rem;
-    }
-
-    .result-item span {
-        color: var(--text-secondary);
-        font-size: 0.95rem;
-    }
-
-    .result-item h2 {
-        font-size: 1.5rem;
-        font-weight: 700;
-    }
-
-    .result-item.profit h3 {
-        color: var(--accent-color);
-        font-size: 1.25rem;
-        font-weight: 600;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .error-message {
-        color: #ef4444;
-        background-color: rgba(239, 68, 68, 0.1);
-        border: 1px solid rgba(239, 68, 68, 0.2);
-        padding: 0.75rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-        font-size: 0.9rem;
-        text-align: center;
-    }
-
-    .error-message.hidden {
-        display: none;
-    }
-
-    .input-error {
-        border-color: #ef4444 !important;
-        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
-    }
-
-    .button-group {
-        display: flex;
-        gap: 1rem;
-    }
-
-    .secondary-btn {
-        background-color: transparent;
-        border: 1px solid #475569;
-        color: #94a3b8;
-        margin-top: 0.5rem;
-    }
-
-    .secondary-btn:hover {
-        background-color: rgba(255, 255, 255, 0.05);
-        border-color: #ef4444;
-        color: #ef4444;
-    }
-
-    .toast {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #334155;
-        color: #f8fafc;
-        padding: 0.75rem 1.5rem;
-        border-radius: 9999px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        font-size: 0.9rem;
-        font-weight: 500;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-        pointer-events: none;
-        z-index: 50;
-    }
-
-    .toast.show {
-        opacity: 1;
-        transform: translateX(-50%) translateY(-10px);
-    }
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
 }
