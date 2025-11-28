@@ -15,6 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }).format(value);
     };
 
+    // Load data from LocalStorage
+    const loadData = () => {
+        const savedPrincipal = localStorage.getItem('principal');
+        const savedRate = localStorage.getItem('rate');
+        const savedTime = localStorage.getItem('time');
+
+        if (savedPrincipal && savedRate && savedTime) {
+            document.getElementById('principal').value = savedPrincipal;
+            document.getElementById('rate').value = savedRate;
+            document.getElementById('time').value = savedTime;
+
+            // Auto-calculate
+            calculateBtn.click();
+        }
+    };
+
     calculateBtn.addEventListener('click', () => {
         // Reset errors
         errorMessageEl.classList.add('hidden');
@@ -56,6 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
             errorMessageEl.classList.remove('hidden');
             return;
         }
+
+        // Save to LocalStorage
+        localStorage.setItem('principal', principal);
+        localStorage.setItem('rate', rate);
+        localStorage.setItem('time', time);
 
         // Formula: A = P(1 + r/100)^t
         // Assuming annual compounding (n=1)
@@ -159,4 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Initialize
+    loadData();
 });
